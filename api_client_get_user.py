@@ -1,19 +1,12 @@
 from clients.private_http_builder import AuthenticationUserSchema
 from clients.users.private_users_client import get_private_users_client
 from clients.users.public_users_client import get_public_users_client
-from tools.fakers import get_random_email
 
 from clients.users.users_schema import CreateUserRequestSchema
 
 public_users_client = get_public_users_client()
 
-create_user_request = CreateUserRequestSchema(
-    email=get_random_email(),
-    password="string",
-    last_name="Platonov",
-    first_name="Evgenii",
-    middle_name="Olegovich"
-)
+create_user_request = CreateUserRequestSchema() # без параметров, т.к инициализированы рандом.данные в схеме
 
 create_user_response = public_users_client.create_user(create_user_request)
 

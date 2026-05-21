@@ -7,7 +7,7 @@ from typing import TypedDict
 from clients.files.files_schema import FileSchema
 from clients.private_http_builder import AuthenticationUserSchema, get_private_http_client
 from clients.users.users_schema import UserSchema
-from clients.courses.courses_schema import GetCoursesQuerySchema, CoursesRequestSchema, UpdateCourseRequestSchema, CreateCourseResponseSchema
+from clients.courses.courses_schema import GetCoursesQuerySchema, CreateCoursesRequestSchema, UpdateCourseRequestSchema, CreateCourseResponseSchema
 
 class CoursesClient(APIClient):
     """
@@ -32,7 +32,7 @@ class CoursesClient(APIClient):
         """
         return self.get(f"/api/v1/courses/{course_id}")
 
-    def create_course_api(self, request: CoursesRequestSchema) -> Response:
+    def create_course_api(self, request: CreateCoursesRequestSchema) -> Response:
         """
         Метод создания курса.
 
@@ -61,7 +61,7 @@ class CoursesClient(APIClient):
         """
         return self.delete(f"/api/v1/courses/{course_id}")
 
-    def create_course(self, request: CoursesRequestSchema) -> CreateCourseResponseSchema:
+    def create_course(self, request: CreateCoursesRequestSchema) -> CreateCourseResponseSchema:
         response = self.create_course_api(request)
         return CreateCourseResponseSchema.model_validate_json(response.text)
 
