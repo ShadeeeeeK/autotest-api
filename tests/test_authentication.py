@@ -1,3 +1,5 @@
+import pytest
+
 from http import HTTPStatus
 
 from clients.authentication.authentication_client import get_authentication_client
@@ -8,7 +10,8 @@ from tools.assertions.authentication import assert_login_response
 from tools.assertions.base import assert_status_code
 from tools.assertions.schema import validate_json_schema
 
-
+@pytest.mark.regression
+@pytest.mark.authentication
 def test_login():
     public_users_client = get_public_users_client()
     authentication_client = get_authentication_client()
@@ -25,6 +28,7 @@ def test_login():
     login_response = authentication_client.login_api(authentication_user)
     login_response_data = LoginResponseSchema.model_validate_json(login_response.text)
 
-    assert_status_code(login_response.status_code, HTTPStatus.OK) # проверяем статус код
-    assert_login_response(login_response_data) # проверяем, что в ответе пришли все поля
-    validate_json_schema(instance=login_response.json(), schema=LoginResponseSchema.model_json_schema()) # валидируем схему
+    assert_status_code(login_response.status_code, HTTPStatus.OK)  # проверяем статус код
+    assert_login_response(login_response_data)  # проверяем, что в ответе пришли все поля
+    validate_json_schema(instance=login_response.json(),
+                         schema=LoginResponseSchema.model_json_schema())  # валидируем схему
