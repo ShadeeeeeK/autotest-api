@@ -5,6 +5,8 @@ from clients.api_client import APIClient
 from clients.public_http_builder import get_public_http_client
 from clients.authentication.authentication_schema import TokenSchema, LoginResponseSchema, LoginRequestSchema, \
     RefreshRequestSchema
+from clients.users.public_users_client import get_public_users_client
+from clients.users.users_schema import CreateUserRequestSchema
 
 
 class AuthenticationClient(APIClient):
@@ -32,6 +34,7 @@ class AuthenticationClient(APIClient):
 
     def login(self, request: LoginRequestSchema) -> LoginResponseSchema:
         response = self.login_api(request)
+        print(response)
         return LoginResponseSchema.model_validate_json(response.text)
 
 
@@ -42,4 +45,3 @@ def get_authentication_client() -> AuthenticationClient:
     :return: Готовый к использованию AuthenticationClient.
     """
     return AuthenticationClient(client=get_public_http_client())
-
