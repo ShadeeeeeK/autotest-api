@@ -18,7 +18,6 @@ create_user_request = CreateUserRequestSchema(
 
 create_user_response = public_users_client.create_user(create_user_request)
 
-print('1', create_user_response)
 authentication_user = AuthenticationUserSchema(
     email=create_user_request.email,
     password=create_user_request.password

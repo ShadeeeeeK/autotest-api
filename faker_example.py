@@ -8,4 +8,3 @@ data = {
     "age": fake.random_int(18, 65)
 }
 
-print(data)

@@ -73,3 +73,4 @@ def get_courses_client(user: AuthenticationUserSchema) -> CoursesClient:
     :return: Готовый к использованию CoursesClient.
     """
     return CoursesClient(client=get_private_http_client(user))
+
